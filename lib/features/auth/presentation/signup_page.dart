@@ -5,15 +5,21 @@ class SignupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            Text('CoCo'),
-            Text('CoCo'),
-            Text('CoCo'),
-            Text('CoCo'),
-          ],
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Create Account',
+                  style: AppStyles.font24BlueBold,
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
