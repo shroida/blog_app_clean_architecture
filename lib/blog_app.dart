@@ -1,4 +1,4 @@
-import 'package:blog_clean_architecture/core/app_theme.dart';
+import 'package:blog_clean_architecture/core/theme/app_theme.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/signup_page.dart';
 import 'package:flutter/material.dart';
 

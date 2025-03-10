@@ -1,4 +1,4 @@
-import 'package:blog_clean_architecture/core/app_color.dart';
+import 'package:blog_clean_architecture/core/theme/app_color.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {
