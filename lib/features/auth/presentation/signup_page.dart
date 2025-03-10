@@ -1,3 +1,4 @@
+import 'package:blog_clean_architecture/core/styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class SignupPage extends StatelessWidget {
@@ -8,14 +9,24 @@ class SignupPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'Create Account',
-                  style: AppStyles.font24BlueBold,
+                  style: AppTextStyles.headline1,
+                ),
+                const SizedBox(
+                  height: 18,
+                ),
+                Text(
+                  'Sign up now and start exploring all that our app has to offer.\nWe\'re excited to welcome you to our community!',
+                  style: AppTextStyles.caption.copyWith(color: Colors.grey),
+                ),
+                const SizedBox(
+                  height: 34,
                 ),
               ],
             ),
