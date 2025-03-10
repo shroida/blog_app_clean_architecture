@@ -19,8 +19,24 @@ class SignupPage extends StatelessWidget {
                   height: 30,
                 ),
                 AuthField(
+                  hinText: 'Name',
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                AuthField(
                   hinText: 'Email',
-                )
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                AuthField(
+                  hinText: 'Password',
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                
               ],
             ),
           ),
