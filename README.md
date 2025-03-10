@@ -1,16 +1,13 @@
-# blog_clean_architecture
+# 📱 Clean Architecture Flutter App 🚀
+A Flutter application following Clean Architecture and SOLID Principles, powered by:
 
-A new Flutter project.
+✅ BLoC for state management
+✅ Supabase for authentication & database
+✅ Hive for local storage
+✅ GetIt for dependency injection
 
-## Getting Started
+Built for scalability, maintainability, and performance! 💡
 
-This project is a starting point for a Flutter application.
+### 🛠️ Project Structure
+![f](https://github.com/user-attachments/assets/43f99c28-fc11-45ad-a46a-eea303a21931)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
