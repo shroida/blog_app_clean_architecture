@@ -1,3 +1,4 @@
+import 'package:blog_clean_architecture/features/auth/presentation/widgets/auth_field.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/widgets/header_texts_signup.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,15 @@ class SignupPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
           child: SingleChildScrollView(
             child: Column(
-              children: [HeaderTextsSignup()],
+              children: [
+                HeaderTextsSignup(),
+                SizedBox(
+                  height: 30,
+                ),
+                AuthField(
+                  hinText: 'Email',
+                )
+              ],
             ),
           ),
         ),
