@@ -1,4 +1,4 @@
-#📱 Clean Architecture Flutter App 🚀
+📱 #Clean Architecture Flutter App 🚀
 A Flutter application following Clean Architecture and SOLID Principles, powered by:
 
 ✅ BLoC for state management
