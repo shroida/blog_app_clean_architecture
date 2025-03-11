@@ -46,6 +46,7 @@ class FormSignUp extends StatelessWidget {
             AuthField(
               controller: passwordController,
               hinText: 'Password',
+              isObscureText: true,
             ),
             const SizedBox(
               height: 30,
