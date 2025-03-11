@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:blog_clean_architecture/core/theme/app_color.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/pages/login_page.dart';
 
-class NavigateToSignUp extends StatelessWidget {
-  const NavigateToSignUp({
+class NavigateTo extends StatelessWidget {
+  const NavigateTo({
     super.key,
     this.navigateToLogin = true,
   });
