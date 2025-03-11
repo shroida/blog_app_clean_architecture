@@ -1,0 +1,2 @@
+String supabaseUrl = 'https://aqyqoubxhisxnjhmkocb.supabase.co';
+String anonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxeXFvdWJ4aGlzeG5qaG1rb2NiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2OTY0MDMsImV4cCI6MjA1NzI3MjQwM30.TPNET3GWmiK3ThO-slo0C3iwvEkf4_xslXq4XYg_5qY';
