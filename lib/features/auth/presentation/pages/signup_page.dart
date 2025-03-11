@@ -1,4 +1,5 @@
 import 'package:blog_clean_architecture/core/theme/app_color.dart';
+import 'package:blog_clean_architecture/features/auth/presentation/pages/login_page.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/widgets/auth_field.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/widgets/auth_gradient_button.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/widgets/header_texts_signup.dart';
@@ -42,7 +43,10 @@ class SignupPage extends StatelessWidget {
                 const SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, LoginPage.route());
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginPage()));
                   },
                   child: RichText(
                     text: TextSpan(
