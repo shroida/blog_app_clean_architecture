@@ -53,9 +53,7 @@ class FormSignUp extends StatelessWidget {
             ),
             AuthGradientButton(buttonText: 'Sign Up', onPressed: () {}),
             const SizedBox(height: 20),
-            const NavigateTo(
-              navigateToLogin: false,
-            ),
+            const NavigateTo(),
           ],
         ),
       ),
