@@ -7,21 +7,30 @@ import 'package:fpdart/fpdart.dart';
 class AuthRepoImpl implements AuthRepo {
   final AuthRemoteDataSource _authRemoteDataSource;
 
- const AuthRepoImpl(this._authRemoteDataSource);
+  const AuthRepoImpl(this._authRemoteDataSource);
   @override
   Future<Either<Failure, String>> login(
-      {required String email, required String password}) {
-    _authRemoteDataSource.
+      {required String email, required String password}) async {
+    try {
+      final userId =
+          await _authRemoteDataSource.login(email: email, password: password);
+      return right(userId);
+    } on ServerExceptions catch (e) {
+      return left(Failure(e.message));
+    }
   }
 
   @override
   Future<Either<Failure, String>> signup(
-      {required String name, required String email, required String password}) async{
-        try {
-final userId=await _authRemoteDataSource.signup(name: name, email: email, password: password);
-          return right(userId);
-        }on ServerExceptions catch (e) {
-          return left(Failure(e.message));
-        }
+      {required String name,
+      required String email,
+      required String password}) async {
+    try {
+      final userId = await _authRemoteDataSource.signup(
+          name: name, email: email, password: password);
+      return right(userId);
+    } on ServerExceptions catch (e) {
+      return left(Failure(e.message));
+    }
   }
 }
