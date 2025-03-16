@@ -1,8 +1,10 @@
+import 'package:blog_clean_architecture/features/auth/presentation/logic/auth_cubit.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/widgets/auth_field.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/widgets/auth_gradient_button.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/widgets/header_texts_signup.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/widgets/navigate_to_signup.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FormSignUp extends StatelessWidget {
   const FormSignUp({
@@ -51,7 +53,16 @@ class FormSignUp extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            AuthGradientButton(buttonText: 'Sign Up', onPressed: () {}),
+            AuthGradientButton(
+                buttonText: 'Sign Up',
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    context.read<AuthCubit>().signup(
+                        name: nameController.text,
+                        email: emailController.text,
+                        password: passwordController.text);
+                  }
+                }),
             const SizedBox(height: 20),
             const NavigateTo(),
           ],
