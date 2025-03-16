@@ -22,7 +22,7 @@ class AuthCubit extends Cubit<AuthState> {
       response.fold(
         (failure) =>
             emit(AuthFailure(message: failure.message)), // Emit failure state
-        (userId) => emit(AuthSuccess(userId: userId)), // Emit success state
+        (user) => emit(AuthSuccess(user: user)), // Emit success state
       );
     } catch (e) {
       emit(AuthFailure(message: e.toString()));

@@ -1,3 +1,5 @@
+import 'package:blog_clean_architecture/features/auth/domain/entities/user.dart';
+
 abstract class AuthState {}
 
 class AuthInitial extends AuthState {}
@@ -5,16 +7,16 @@ class AuthInitial extends AuthState {}
 class AuthLoading extends AuthState {}
 
 class AuthSuccess extends AuthState {
-  final String userId;
-  AuthSuccess({required this.userId});
+  final User user;
+  AuthSuccess({required this.user});
 }
 
 class SignupSuccess extends AuthSuccess {
-  SignupSuccess({required super.userId});
+  SignupSuccess({required super.user});
 }
 
 class LoginSuccess extends AuthSuccess {
-  LoginSuccess({required super.userId});
+  LoginSuccess({required super.user});
 }
 
 class AuthFailure extends AuthState {
