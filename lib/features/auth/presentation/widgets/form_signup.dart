@@ -1,4 +1,5 @@
 import 'package:blog_clean_architecture/features/auth/presentation/logic/auth_cubit.dart';
+import 'package:blog_clean_architecture/features/auth/presentation/logic/auth_state.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/widgets/auth_field.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/widgets/auth_gradient_button.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/widgets/header_texts_signup.dart';
@@ -23,50 +24,58 @@ class FormSignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Form(
-        key: formKey,
-        child: Column(
-          children: [
-            const HeaderTextsSignup(),
-            const SizedBox(
-              height: 30,
+      child: BlocConsumer<AuthCubit, AuthState>(
+        listener: (context, state) {
+          // Handle any side effects like navigation or showing dialogs
+        },
+        builder: (context, state) {
+          bool isLoading = state is AuthLoading;
+          bool isError = state is AuthFailure;
+          bool isSuccess = state is AuthSuccess;
+
+          return Form(
+            key: formKey,
+            child: Column(
+              children: [
+                const HeaderTextsSignup(),
+                const SizedBox(height: 30),
+                AuthField(
+                  controller: nameController,
+                  hinText: 'Name',
+                ),
+                const SizedBox(height: 30),
+                AuthField(
+                  controller: emailController,
+                  hinText: 'Email',
+                ),
+                const SizedBox(height: 30),
+                AuthField(
+                  controller: passwordController,
+                  hinText: 'Password',
+                  isObscureText: true,
+                ),
+                const SizedBox(height: 30),
+                AuthGradientButton(
+                  buttonText: 'Sign Up',
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      context.read<AuthCubit>().signup(
+                            name: nameController.text,
+                            email: emailController.text,
+                            password: passwordController.text,
+                          );
+                    }
+                  },
+                  isLoading: isLoading,
+                  isError: isError,
+                  isSuccess: isSuccess,
+                ),
+                const SizedBox(height: 20),
+                const NavigateTo(),
+              ],
             ),
-            AuthField(
-              controller: nameController,
-              hinText: 'Name',
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            AuthField(
-              controller: emailController,
-              hinText: 'Email',
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            AuthField(
-              controller: passwordController,
-              hinText: 'Password',
-              isObscureText: true,
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            AuthGradientButton(
-                buttonText: 'Sign Up',
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    context.read<AuthCubit>().signup(
-                        name: nameController.text,
-                        email: emailController.text,
-                        password: passwordController.text);
-                  }
-                }),
-            const SizedBox(height: 20),
-            const NavigateTo(),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
