@@ -20,7 +20,11 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<String> login(
       {required String email, required String password}) async {
-    try {} catch (e) {}
+    try {
+      return '';
+    } catch (e) {
+      throw ServerExceptions(e.toString());
+    }
   }
 
   @override
