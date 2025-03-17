@@ -9,26 +9,34 @@ class AuthRepoImpl implements AuthRepo {
   final AuthRemoteDataSource _authRemoteDataSource;
 
   const AuthRepoImpl(this._authRemoteDataSource);
+
   @override
-  Future<Either<Failure, User>> login(
-      {required String email, required String password}) async {
-    try {
-      final user =
-          await _authRemoteDataSource.login(email: email, password: password);
-      return right(user);
-    } on ServerExceptions catch (e) {
-      return left(Failure(e.message));
-    }
+  Future<Either<Failure, User>> login({
+    required String email,
+    required String password,
+  }) async {
+    return _handleRemoteCall(
+      () => _authRemoteDataSource.login(email: email, password: password),
+    );
   }
 
   @override
-  Future<Either<Failure, User>> signup(
-      {required String name,
-      required String email,
-      required String password}) async {
+  Future<Either<Failure, User>> signup({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
+    return _handleRemoteCall(
+      () => _authRemoteDataSource.signup(
+          name: name, email: email, password: password),
+    );
+  }
+
+  Future<Either<Failure, User>> _handleRemoteCall(
+    Future<User> Function() remoteCall,
+  ) async {
     try {
-      final user = await _authRemoteDataSource.signup(
-          name: name, email: email, password: password);
+      final user = await remoteCall();
       return right(user);
     } on ServerExceptions catch (e) {
       return left(Failure(e.message));
