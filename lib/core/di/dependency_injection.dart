@@ -20,5 +20,5 @@ void _initAuth() {
       () => AuthRemoteDataSourceImpl(getIt()));
   getIt.registerFactory<AuthRepo>(() => AuthRepoImpl(getIt()));
   getIt.registerFactory(() => UserSignUp(getIt()));
-  getIt.registerLazySingleton(() => AuthCubit(getIt()));
+  getIt.registerLazySingleton(() => AuthCubit(getIt(), getIt()));
 }
