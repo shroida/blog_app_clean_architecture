@@ -13,9 +13,9 @@ class AuthRepoImpl implements AuthRepo {
   Future<Either<Failure, User>> login(
       {required String email, required String password}) async {
     try {
-      final userId =
+      final user =
           await _authRemoteDataSource.login(email: email, password: password);
-      return right(userId);
+      return right(user);
     } on ServerExceptions catch (e) {
       return left(Failure(e.message));
     }
@@ -27,9 +27,9 @@ class AuthRepoImpl implements AuthRepo {
       required String email,
       required String password}) async {
     try {
-      final userId = await _authRemoteDataSource.signup(
+      final user = await _authRemoteDataSource.signup(
           name: name, email: email, password: password);
-      return right(userId);
+      return right(user);
     } on ServerExceptions catch (e) {
       return left(Failure(e.message));
     }
