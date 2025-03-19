@@ -2,6 +2,7 @@ import 'package:blog_clean_architecture/core/constant/constant.dart';
 import 'package:blog_clean_architecture/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:blog_clean_architecture/features/auth/data/repositories/auth_repo_impl.dart';
 import 'package:blog_clean_architecture/features/auth/domain/repository/auth_repo.dart';
+import 'package:blog_clean_architecture/features/auth/domain/usecases/current_user.dart';
 import 'package:blog_clean_architecture/features/auth/domain/usecases/user_login.dart';
 import 'package:blog_clean_architecture/features/auth/domain/usecases/user_sign_up.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/logic/auth_cubit.dart';
@@ -22,5 +23,6 @@ void _initAuth() {
   getIt.registerFactory<AuthRepo>(() => AuthRepoImpl(getIt()));
   getIt.registerFactory(() => UserSignUp(getIt()));
   getIt.registerFactory(() => UserLogin(getIt()));
-  getIt.registerLazySingleton(() => AuthCubit(getIt(), getIt()));
+  getIt.registerFactory(() => CurrentUser(getIt()));
+  getIt.registerLazySingleton(() => AuthCubit(getIt(), getIt(), getIt()));
 }
