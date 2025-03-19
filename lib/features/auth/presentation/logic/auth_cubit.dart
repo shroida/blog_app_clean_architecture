@@ -1,4 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:blog_clean_architecture/core/common/cubits/cubit/app_user_cubit.dart';
+import 'package:blog_clean_architecture/core/common/entities/user.dart';
 import 'package:blog_clean_architecture/features/auth/domain/usecases/current_user.dart';
 import 'package:blog_clean_architecture/features/auth/domain/usecases/user_login.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +11,9 @@ class AuthCubit extends Cubit<AuthState> {
   final UserSignUp _userSignUp;
   final UserLogin _userLogin;
   final CurrentUser _currentUser;
-  AuthCubit(this._userSignUp, this._userLogin, this._currentUser)
+  final AppUserCubit _appUserCubit;
+  AuthCubit(
+      this._userSignUp, this._userLogin, this._currentUser, this._appUserCubit)
       : super(AuthInitial());
 
   Future<void> signup({
@@ -18,16 +21,15 @@ class AuthCubit extends Cubit<AuthState> {
     required String email,
     required String password,
   }) async {
-    emit(AuthLoading()); // Emit loading state
+    emit(AuthLoading());
     try {
       final response = await _userSignUp.call(
         UserSignUpParams(email: email, password: password, name: name),
       );
 
       response.fold(
-        (failure) =>
-            emit(AuthFailure(message: failure.message)), // Emit failure state
-        (user) => emit(AuthSuccess(user: user)), // Emit success state
+        (failure) => emit(AuthFailure(message: failure.message)),
+        (user) => _emitAuthSuccess(user, emit),
       );
     } catch (e) {
       emit(AuthFailure(message: e.toString()));
@@ -35,12 +37,14 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> login({required String email, required String password}) async {
-    emit(AuthLoading()); // Emit loading state
+    emit(AuthLoading());
     try {
       final response = await _userLogin
           .call(UserLoginParams(email: email, password: password));
-      response.fold((failure) => emit(AuthFailure(message: failure.message)),
-          (user) => emit(AuthSuccess(user: user)));
+      response.fold(
+        (failure) => emit(AuthFailure(message: failure.message)),
+        (user) => _emitAuthSuccess(user, emit),
+      );
     } catch (e) {
       emit(AuthFailure(message: e.toString()));
     }
@@ -50,17 +54,17 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoading());
     try {
       final res = await _currentUser.call(NoParams());
-      res.fold((failure) => emit(AuthFailure(message: failure.message)),
-          (user) {
-        print('===================================');
-        print(user.email);
-        print(user.id);
-        print(user.name);
-        print('===================================');
-        emit(AuthSuccess(user: user));
-      });
+      res.fold(
+        (failure) => emit(AuthFailure(message: failure.message)),
+        (user) => _emitAuthSuccess(user, emit),
+      );
     } catch (e) {
       emit(AuthFailure(message: e.toString()));
     }
+  }
+
+  void _emitAuthSuccess(User user, void Function(AuthState) emit) {
+    _appUserCubit.updateUser(user);
+    emit(AuthSuccess(user: user));
   }
 }
