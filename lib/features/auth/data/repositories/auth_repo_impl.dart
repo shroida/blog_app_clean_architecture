@@ -42,4 +42,18 @@ class AuthRepoImpl implements AuthRepo {
       return left(Failure(e.message));
     }
   }
+
+  @override
+  Future<Either<Failure, User>> currentUser() async {
+    try {
+      final user = await _authRemoteDataSource.getCurrrentUserData();
+      if (user == null) {
+        return left(Failure('User not logged in!'));
+      } else {
+        return right(user);
+      }
+    } on ServerExceptions catch (e) {
+      return left(Failure(e.message));
+    }
+  }
 }
