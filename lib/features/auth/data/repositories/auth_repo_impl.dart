@@ -1,7 +1,7 @@
 import 'package:blog_clean_architecture/core/error/exceptions.dart';
 import 'package:blog_clean_architecture/core/error/failure.dart';
 import 'package:blog_clean_architecture/features/auth/data/datasources/auth_remote_data_source.dart';
-import 'package:blog_clean_architecture/features/auth/domain/entities/user.dart';
+import 'package:blog_clean_architecture/core/common/entities/user.dart';
 import 'package:blog_clean_architecture/features/auth/domain/repository/auth_repo.dart';
 import 'package:fpdart/fpdart.dart';
 
