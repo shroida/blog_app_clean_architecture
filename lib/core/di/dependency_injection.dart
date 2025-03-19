@@ -1,3 +1,4 @@
+import 'package:blog_clean_architecture/core/common/cubits/cubit/app_user_cubit.dart';
 import 'package:blog_clean_architecture/core/constant/constant.dart';
 import 'package:blog_clean_architecture/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:blog_clean_architecture/features/auth/data/repositories/auth_repo_impl.dart';
@@ -24,5 +25,7 @@ void _initAuth() {
   getIt.registerFactory(() => UserSignUp(getIt()));
   getIt.registerFactory(() => UserLogin(getIt()));
   getIt.registerFactory(() => CurrentUser(getIt()));
-  getIt.registerLazySingleton(() => AuthCubit(getIt(), getIt(), getIt()));
+  getIt.registerFactory(() => AppUserCubit());
+  getIt.registerLazySingleton(
+      () => AuthCubit(getIt(), getIt(), getIt(), getIt()));
 }
