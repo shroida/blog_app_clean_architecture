@@ -1,5 +1,7 @@
+import 'package:blog_clean_architecture/core/constant/topics_constants.dart';
 import 'package:blog_clean_architecture/core/theme/app_color.dart';
-import 'package:dotted_border/dotted_border.dart';
+import 'package:blog_clean_architecture/features/blog/presentation/widgets/app_bar_add_new.dart';
+import 'package:blog_clean_architecture/features/blog/presentation/widgets/dotted_border_widget.dart';
 import 'package:flutter/material.dart';
 
 class AddNewBlogPage extends StatefulWidget {
@@ -13,53 +15,20 @@ class AddNewBlogPage extends StatefulWidget {
 }
 
 class AddNewBlogPageState extends State<AddNewBlogPage> {
+  List<String> selectedTopics = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
-              // uploadBlog();
-            },
-            icon: const Icon(Icons.done_rounded),
-          ),
-        ],
-      ),
+      appBar: const AppBarAddNew(),
       body: Column(
         children: [
-          DottedBorder(
-            color: AppColor.borderColor,
-            dashPattern: const [10, 4],
-            radius: const Radius.circular(10),
-            borderType: BorderType.RRect,
-            strokeCap: StrokeCap.round,
-            child: const SizedBox(
-              height: 150,
-              width: double.infinity,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.folder_open,
-                    size: 40,
-                  ),
-                  SizedBox(height: 15),
-                  Text(
-                    'Select your image',
-                    style: TextStyle(
-                      fontSize: 15,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          const DottedBorderWidget(),
           const SizedBox(height: 20),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
-              children: Constants.topics
+              children: TopicsConstants.topics
                   .map(
                     (e) => Padding(
                       padding: const EdgeInsets.all(5.0),
@@ -75,14 +44,14 @@ class AddNewBlogPageState extends State<AddNewBlogPage> {
                         child: Chip(
                           label: Text(e),
                           color: selectedTopics.contains(e)
-                              ? const MaterialStatePropertyAll(
-                                  AppPallete.gradient1,
+                              ? const WidgetStatePropertyAll(
+                                  AppColor.gradient1,
                                 )
                               : null,
                           side: selectedTopics.contains(e)
                               ? null
                               : const BorderSide(
-                                  color: AppPallete.borderColor,
+                                  color: AppColor.borderColor,
                                 ),
                         ),
                       ),
