@@ -55,6 +55,42 @@ class AddNewBlogPageState extends State<AddNewBlogPage> {
               ),
             ),
           ),
+          const SizedBox(height: 20),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: Constants.topics
+                  .map(
+                    (e) => Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          if (selectedTopics.contains(e)) {
+                            selectedTopics.remove(e);
+                          } else {
+                            selectedTopics.add(e);
+                          }
+                          setState(() {});
+                        },
+                        child: Chip(
+                          label: Text(e),
+                          color: selectedTopics.contains(e)
+                              ? const MaterialStatePropertyAll(
+                                  AppPallete.gradient1,
+                                )
+                              : null,
+                          side: selectedTopics.contains(e)
+                              ? null
+                              : const BorderSide(
+                                  color: AppPallete.borderColor,
+                                ),
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+          ),
         ],
       ),
     );
