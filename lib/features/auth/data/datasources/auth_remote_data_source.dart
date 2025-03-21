@@ -20,6 +20,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final SupabaseClient supabaseClient;
 
   AuthRemoteDataSourceImpl(this.supabaseClient);
+
+  @override
+  Session? get currentUserSession => supabaseClient.auth.currentSession;
+
   @override
   Future<UserModel> login(
       {required String email, required String password}) async {
@@ -57,20 +61,19 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Session? get currentUserSession => supabaseClient.auth.currentSession;
-
-  @override
   Future<UserModel?> getCurrrentUserData() async {
     try {
       if (currentUserSession != null) {
-        final userData = await supabaseClient
-            .from('profiles')
-            .select()
-            .eq('id', currentUserSession!.user.id);
-        return UserModel.fromJson(userData.first);
-      } else {
-        return null;
+        final userData = await supabaseClient.from('profiles').select().eq(
+              'id',
+              currentUserSession!.user.id,
+            );
+        return UserModel.fromJson(userData.first).copyWith(
+          email: currentUserSession!.user.email,
+        );
       }
+
+      return null;
     } catch (e) {
       throw ServerExceptions(e.toString());
     }

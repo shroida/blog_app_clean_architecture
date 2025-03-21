@@ -1,5 +1,6 @@
 import 'package:blog_clean_architecture/core/common/cubits/cubit/app_user_cubit.dart';
 import 'package:blog_clean_architecture/core/common/entities/user.dart';
+import 'package:blog_clean_architecture/core/usecase/usecase.dart';
 import 'package:blog_clean_architecture/features/auth/domain/usecases/current_user.dart';
 import 'package:blog_clean_architecture/features/auth/domain/usecases/user_login.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

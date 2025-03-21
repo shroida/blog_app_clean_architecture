@@ -14,4 +14,3 @@ class CurrentUser implements UseCase<User, NoParams> {
   }
 }
 
-class NoParams {}
