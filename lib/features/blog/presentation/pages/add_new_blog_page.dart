@@ -19,7 +19,14 @@ class AddNewBlogPageState extends State<AddNewBlogPage> {
   final titleController = TextEditingController();
   final contentController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+
   List<String> selectedTopics = [];
+  @override
+  void dispose() {
+    super.dispose();
+    titleController.dispose();
+    contentController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
