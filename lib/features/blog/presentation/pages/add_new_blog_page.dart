@@ -49,11 +49,18 @@ class AddNewBlogPageState extends State<AddNewBlogPage> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              GestureDetector(
-                  onTap: () {
-                    selectImage();
-                  },
-                  child: const DottedBorderWidget()),
+              image != null
+                  ? GestureDetector(
+                      onTap: selectImage,
+                      child: SizedBox(
+                          width: double.infinity,
+                          height: 250,
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.file(image!, fit: BoxFit.fill))),
+                    )
+                  : GestureDetector(
+                      onTap: selectImage, child: const DottedBorderWidget()),
               const SizedBox(height: 20),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
