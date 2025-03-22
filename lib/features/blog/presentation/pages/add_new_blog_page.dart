@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:blog_clean_architecture/core/constant/topics_constants.dart';
 import 'package:blog_clean_architecture/core/theme/app_color.dart';
+import 'package:blog_clean_architecture/core/utlis/pick_image.dart';
 import 'package:blog_clean_architecture/features/blog/presentation/widgets/app_bar_add_new.dart';
 import 'package:blog_clean_architecture/features/blog/presentation/widgets/blog_editor.dart';
 import 'package:blog_clean_architecture/features/blog/presentation/widgets/dotted_border_widget.dart';
@@ -19,8 +22,17 @@ class AddNewBlogPageState extends State<AddNewBlogPage> {
   final titleController = TextEditingController();
   final contentController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-
+  File? image;
   List<String> selectedTopics = [];
+  void selectImage() async {
+    final pickedImage = await pickImage();
+    if (pickedImage != null) {
+      setState(() {
+        image = pickedImage;
+      });
+    }
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -37,7 +49,11 @@ class AddNewBlogPageState extends State<AddNewBlogPage> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              const DottedBorderWidget(),
+              GestureDetector(
+                  onTap: () {
+                    selectImage();
+                  },
+                  child: const DottedBorderWidget()),
               const SizedBox(height: 20),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
