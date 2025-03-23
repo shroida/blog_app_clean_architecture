@@ -1,9 +1,12 @@
+import 'dart:io';
 import 'package:blog_clean_architecture/core/error/exceptions.dart';
 import 'package:blog_clean_architecture/features/blog/data/models/blog_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class BlogRemoteDataSource {
   Future<BlogModel> uploadBlog(BlogModel blog);
+  Future<String> uploadBlogImage(
+      {required File image, required BlogModel blog});
 }
 
 class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
@@ -16,6 +19,17 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
       final blogData =
           await supabaseClient.from('blogs').insert({blog.toJson()}).select();
       return BlogModel.fromJson(blogData.first);
+    } catch (e) {
+      throw ServerExceptions(e.toString());
+    }
+  }
+
+  @override
+  Future<String> uploadBlogImage(
+      {required File image, required BlogModel blog}) async {
+    try {
+      await supabaseClient.storage.from('blog_images').upload(blog.id, image);
+      return supabaseClient.storage.from('blog_images').getPublicUrl(blog.id);
     } catch (e) {
       throw ServerExceptions(e.toString());
     }
