@@ -7,6 +7,7 @@ import 'package:blog_clean_architecture/features/auth/domain/usecases/current_us
 import 'package:blog_clean_architecture/features/auth/domain/usecases/user_login.dart';
 import 'package:blog_clean_architecture/features/auth/domain/usecases/user_sign_up.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/logic/auth_cubit.dart';
+import 'package:blog_clean_architecture/features/blog/data/datasources/blog_local_data_source.dart';
 import 'package:blog_clean_architecture/features/blog/data/datasources/blog_remote_data_source.dart';
 import 'package:blog_clean_architecture/features/blog/data/repositoires/blog_repo_impl.dart';
 import 'package:blog_clean_architecture/features/blog/domain/repositories/blog_repository.dart';
@@ -39,10 +40,15 @@ void _initAuth() {
 void _initBlog() {
   getIt.registerFactory<BlogRemoteDataSource>(
       () => BlogRemoteDataSourceImpl(getIt()));
+
+  getIt.registerFactory<BlogLocalDataSource>(
+      () => BlogLocalDataSourceImpl(getIt()));
+
   getIt.registerFactory<BlogRepository>(
       () => BlogRepositoryImpl(getIt(), getIt(), getIt()));
+
   getIt.registerFactory(() => UploadBlog(getIt()));
-  getIt.registerFactory(() => AppUserCubit());
+
   getIt.registerLazySingleton(() => BlogCubit(
         getIt(),
       ));

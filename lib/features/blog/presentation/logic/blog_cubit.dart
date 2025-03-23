@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class BlogCubit extends Cubit<BlogState> {
   final UploadBlog uploadBlog;
   BlogCubit(this.uploadBlog) : super(BlogInitial());
-  void _onUploadBlog({
+  void onUploadBlog({
     required String posterId,
     required String title,
     required String content,

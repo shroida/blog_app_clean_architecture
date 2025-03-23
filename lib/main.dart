@@ -14,7 +14,7 @@ void main() async {
     providers: [
       BlocProvider(create: (_) => getIt<AppUserCubit>()),
       BlocProvider(create: (_) => getIt<AuthCubit>()),
-      BlocProvider(create: (_) => getIt<BlogCubit>())
+      BlocProvider(create: (context) => getIt<BlogCubit>())
     ],
     child: const BlogApp(),
   ));
