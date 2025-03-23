@@ -1,15 +1,16 @@
 import 'dart:io';
 import 'package:blog_app/core/constants/constants.dart';
-import 'package:blog_app/core/error/exceptions.dart';
-import 'package:blog_app/core/error/failures.dart';
 import 'package:blog_app/core/network/connection_checker.dart';
 import 'package:blog_app/features/blog/data/datasources/blog_local_data_source.dart';
 import 'package:blog_app/features/blog/data/datasources/blog_remote_data_source.dart';
 import 'package:blog_app/features/blog/data/models/blog_model.dart';
 import 'package:blog_app/features/blog/domain/entities/blog.dart';
 import 'package:blog_app/features/blog/domain/repositories/blog_repository.dart';
+import 'package:blog_clean_architecture/core/constant/topics_constants.dart';
+import 'package:blog_clean_architecture/core/error/exceptions.dart';
 import 'package:blog_clean_architecture/core/error/failure.dart';
 import 'package:blog_clean_architecture/features/blog/data/datasources/blog_remote_data_source.dart';
+import 'package:blog_clean_architecture/features/blog/data/models/blog_model.dart';
 import 'package:blog_clean_architecture/features/blog/domain/entities/blog.dart';
 import 'package:blog_clean_architecture/features/blog/domain/repositories/blog_repository.dart';
 import 'package:fpdart/fpdart.dart';
@@ -35,7 +36,7 @@ class BlogRepositoryImpl implements BlogRepository {
   }) async {
     try {
       if (!await (connectionChecker.isConnected)) {
-        return left(Failure(Constants.noConnectionErrorMessage));
+        return left(Failure(TopicsConstants.noConnectionErrorMessage));
       }
       BlogModel blogModel = BlogModel(
         id: const Uuid().v1(),
@@ -58,7 +59,7 @@ class BlogRepositoryImpl implements BlogRepository {
 
       final uploadedBlog = await blogRemoteDataSource.uploadBlog(blogModel);
       return right(uploadedBlog);
-    } on ServerException catch (e) {
+    } on ServerExceptions catch (e) {
       return left(Failure(e.message));
     }
   }
@@ -73,7 +74,7 @@ class BlogRepositoryImpl implements BlogRepository {
       final blogs = await blogRemoteDataSource.getAllBlogs();
       blogLocalDataSource.uploadLocalBlogs(blogs: blogs);
       return right(blogs);
-    } on ServerException catch (e) {
+    } on ServerExceptions catch (e) {
       return left(Failure(e.message));
     }
   }
