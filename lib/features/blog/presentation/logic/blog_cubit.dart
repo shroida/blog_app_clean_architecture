@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:blog_clean_architecture/features/blog/domain/usecase/upload_blog.dart';
 import 'package:blog_clean_architecture/features/blog/presentation/logic/blog_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +13,7 @@ class BlogCubit extends Cubit<BlogState> {
     required File image,
     required List<String> topics,
   }) async {
-    emit(BlogLoading()); // حالة التحميل
+    emit(BlogLoading());
     final res = await uploadBlog.call(
       UploadBlogParams(
         posterId: posterId,
@@ -25,7 +24,7 @@ class BlogCubit extends Cubit<BlogState> {
       ),
     );
     res.fold(
-      (failure) => emit(BlogFailure(failure.toString())),
+      (failure) => emit(BlogFailure(error: failure.toString())),
       (blog) => emit(BlogSuccess(blog)),
     );
   }
