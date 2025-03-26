@@ -12,6 +12,7 @@ import 'package:blog_clean_architecture/features/blog/data/datasources/blog_loca
 import 'package:blog_clean_architecture/features/blog/data/datasources/blog_remote_data_source.dart';
 import 'package:blog_clean_architecture/features/blog/data/repositoires/blog_repo_impl.dart';
 import 'package:blog_clean_architecture/features/blog/domain/repositories/blog_repository.dart';
+import 'package:blog_clean_architecture/features/blog/domain/usecase/get_all_blogs.dart';
 import 'package:blog_clean_architecture/features/blog/domain/usecase/upload_blog.dart';
 import 'package:blog_clean_architecture/features/blog/presentation/logic/blog_cubit.dart';
 import 'package:get_it/get_it.dart';
@@ -59,6 +60,7 @@ void _initBlog() {
       () => BlogRepositoryImpl(getIt(), getIt(), getIt()));
 
   getIt.registerFactory(() => UploadBlog(getIt()));
+  getIt.registerFactory(() => GetAllBlogs(getIt()));
 
   getIt.registerLazySingleton(() => BlogCubit(
         getIt(),

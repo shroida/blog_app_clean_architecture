@@ -1,7 +1,6 @@
-import 'package:blog_app/core/utils/calculate_reading_time.dart';
-import 'package:blog_app/features/blog/domain/entities/blog.dart';
-import 'package:blog_app/features/blog/presentation/pages/blog_viewer_page.dart';
+import 'package:blog_clean_architecture/core/utlis/calculate_reading_time.dart';
 import 'package:blog_clean_architecture/features/blog/domain/entities/blog.dart';
+import 'package:blog_clean_architecture/features/blog/presentation/pages/blog_viewer_page.dart';
 import 'package:flutter/material.dart';
 
 class BlogCard extends StatelessWidget {

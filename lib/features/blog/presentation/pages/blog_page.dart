@@ -21,8 +21,12 @@ class BlogPage extends StatefulWidget {
 
 class _BlogPageState extends State<BlogPage> {
   @override
-  void initState() async {
+  void initState() {
     super.initState();
+    _fetchBlogs();
+  }
+
+  Future<void> _fetchBlogs() async {
     await context.read<BlogCubit>().onFetchAllBlogs();
   }
 
