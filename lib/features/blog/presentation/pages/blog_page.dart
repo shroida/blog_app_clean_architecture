@@ -4,6 +4,7 @@ import 'package:blog_clean_architecture/core/utlis/snackbar.dart';
 import 'package:blog_clean_architecture/features/blog/presentation/logic/blog_cubit.dart';
 import 'package:blog_clean_architecture/features/blog/presentation/logic/blog_state.dart';
 import 'package:blog_clean_architecture/features/blog/presentation/pages/add_new_blog_page.dart';
+import 'package:blog_clean_architecture/features/blog/presentation/widgets/blog_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
