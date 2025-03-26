@@ -18,7 +18,7 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
   Future<BlogModel> uploadBlog(BlogModel blog) async {
     try {
       final blogData =
-          await supabaseClient.from('blogs').insert({blog.toJson()}).select();
+          await supabaseClient.from('blogs').insert(blog.toJson()).select();
       return BlogModel.fromJson(blogData.first);
     } catch (e) {
       throw ServerExceptions(e.toString());

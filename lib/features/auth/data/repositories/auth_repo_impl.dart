@@ -39,7 +39,7 @@ class AuthRepoImpl implements AuthRepo {
       final user = await remoteCall();
       return right(user);
     } on ServerExceptions catch (e) {
-      return left(Failure(e.message));
+      return left(ServerFailure(e.message));
     }
   }
 
@@ -48,12 +48,12 @@ class AuthRepoImpl implements AuthRepo {
     try {
       final user = await _authRemoteDataSource.getCurrrentUserData();
       if (user == null) {
-        return left(Failure('User not logged in!'));
+        return left(ServerFailure('User not logged in!'));
       } else {
         return right(user);
       }
     } on ServerExceptions catch (e) {
-      return left(Failure(e.message));
+      return left(ServerFailure(e.message));
     }
   }
 }

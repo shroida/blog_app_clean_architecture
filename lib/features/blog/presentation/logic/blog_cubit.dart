@@ -5,8 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BlogCubit extends Cubit<BlogState> {
   final UploadBlog uploadBlog;
+
   BlogCubit(this.uploadBlog) : super(BlogInitial());
-  void onUploadBlog({
+
+  Future<void> onUploadBlog({
     required String posterId,
     required String title,
     required String content,
@@ -20,12 +22,13 @@ class BlogCubit extends Cubit<BlogState> {
         title: title,
         content: content,
         image: image,
-        topics: topics,
+        topics: List<String>.from(topics), // Force List conversion
       ),
     );
+
     res.fold(
-      (failure) => emit(BlogFailure(error: failure.toString())),
-      (blog) => emit(BlogSuccess(blog)),
+      (failure) => emit(BlogFailure(failure.message)),
+      (blog) => emit(BlogUploadSuccess()),
     );
   }
 }

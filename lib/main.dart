@@ -8,11 +8,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await setUpGetIt();
+
+  // Initialize user state if already logged in
+  final appUserCubit = getIt<AppUserCubit>();
+  await appUserCubit.isUserLoggedIn(); // Add this method to your AppUserCubit
+
   runApp(MultiBlocProvider(
     providers: [
-      BlocProvider(create: (_) => getIt<AppUserCubit>()),
+      BlocProvider(create: (_) => appUserCubit),
       BlocProvider(create: (_) => getIt<AuthCubit>()),
       BlocProvider(create: (context) => getIt<BlogCubit>())
     ],

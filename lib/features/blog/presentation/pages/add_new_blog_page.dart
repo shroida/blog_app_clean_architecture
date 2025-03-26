@@ -8,15 +8,28 @@ import 'package:blog_clean_architecture/core/utlis/pick_image.dart';
 import 'package:blog_clean_architecture/core/utlis/snackbar.dart';
 import 'package:blog_clean_architecture/features/blog/presentation/logic/blog_cubit.dart';
 import 'package:blog_clean_architecture/features/blog/presentation/logic/blog_state.dart';
+import 'package:blog_clean_architecture/features/blog/presentation/pages/blog_page.dart';
 import 'package:blog_clean_architecture/features/blog/presentation/widgets/blog_editor.dart';
 import 'package:blog_clean_architecture/features/blog/presentation/widgets/dotted_border_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddNewBlogPage extends StatefulWidget {
-  static route() => MaterialPageRoute(
-        builder: (context) => const AddNewBlogPage(),
-      );
+  static Route route() {
+    return MaterialPageRoute(
+      builder: (context) {
+        final appUserState = context.read<AppUserCubit>().state;
+        if (appUserState is! AppUserLoggedIn) {
+          // Redirect to login or show error
+          return const Scaffold(
+            body: Center(child: Text('Please log in to create a blog')),
+          );
+        }
+        return const AddNewBlogPage();
+      },
+    );
+  }
+
   const AddNewBlogPage({super.key});
 
   @override
@@ -45,12 +58,21 @@ class AddNewBlogPageState extends State<AddNewBlogPage> {
     contentController.dispose();
   }
 
-  void uploadBlog() {
+  void uploadBlog() async {
     if (formKey.currentState!.validate() && selectedTopics.isNotEmpty) {
-      final posterId =
-          (context.read<AppUserCubit>().state as AppUserLoggedIn).user.id;
-      context.read<BlogCubit>().onUploadBlog(
-            posterId: posterId,
+      if (image == null) {
+        showSnackBar(context, 'Please select an image');
+        return;
+      }
+
+      final appUserState = context.read<AppUserCubit>().state;
+      if (appUserState is! AppUserLoggedIn) {
+        showSnackBar(context, 'You need to be logged in to upload a blog');
+        return;
+      }
+
+      await context.read<BlogCubit>().onUploadBlog(
+            posterId: appUserState.user.id,
             title: titleController.text,
             content: contentController.text,
             image: image!,
@@ -65,18 +87,18 @@ class AddNewBlogPageState extends State<AddNewBlogPage> {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {
-              uploadBlog();
-            },
+            onPressed: uploadBlog,
             icon: const Icon(Icons.done_rounded),
           ),
         ],
       ),
       body: BlocConsumer<BlogCubit, BlogState>(
+        // In the BlocConsumer listener
         listener: (context, state) {
           if (state is BlogFailure) {
-            showSnackBar(context, state.error);
-          } else if (state is BlogSuccess) {
+            showSnackBar(context, state.error, isError: true);
+          } else if (state is BlogUploadSuccess) {
+            showSnackBar(context, 'Blog published successfully!');
             Navigator.pushAndRemoveUntil(
               context,
               BlogPage.route(),

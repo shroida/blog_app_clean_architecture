@@ -7,7 +7,7 @@ import 'package:blog_clean_architecture/features/auth/presentation/pages/login_p
 class NavigateTo extends StatelessWidget {
   const NavigateTo({
     super.key,
-    this.navigateToLogin = true,
+    this.navigateToLogin = false,
   });
   final bool navigateToLogin;
 
@@ -19,19 +19,19 @@ class NavigateTo extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) =>
-                navigateToLogin ? const LoginPage() : const SignupPage(),
+                navigateToLogin ? const SignupPage() : const LoginPage(),
           ),
         );
       },
       child: RichText(
         text: TextSpan(
           text: navigateToLogin
-              ? 'Don\'t have an account? '
-              : 'Already have an account? ',
+              ? 'Already have an account? '
+              : 'Don\'t have an account? ',
           style: Theme.of(context).textTheme.titleMedium,
           children: [
             TextSpan(
-              text: navigateToLogin ? 'Sign Up' : 'Sign In',
+              text: navigateToLogin ? 'Sign In' : 'Sign Up',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     color: AppColor.gradient2,
                     fontWeight: FontWeight.bold,

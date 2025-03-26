@@ -14,7 +14,7 @@ class BlogLocalDataSourceImpl implements BlogLocalDataSource {
   List<BlogModel> loadBlogs() {
     List<BlogModel> blogs = [];
     for (int i = 0; i < box.length; i++) {
-      final blogJson = box.get(i.toString()); // استرجاع البيانات باستخدام `get`
+      final blogJson = box.get(i.toString());
       if (blogJson != null) {
         blogs.add(BlogModel.fromJson(blogJson));
       }
@@ -24,10 +24,10 @@ class BlogLocalDataSourceImpl implements BlogLocalDataSource {
 
   @override
   void uploadLocalBlogs({required List<BlogModel> blogs}) {
-    box.clear(); // مسح البيانات القديمة
+    box.clear();
 
     for (int i = 0; i < blogs.length; i++) {
-      box.put(i.toString(), blogs[i].toJson()); // إضافة البيانات باستخدام `put`
+      box.put(i.toString(), blogs[i].toJson());
     }
   }
 }

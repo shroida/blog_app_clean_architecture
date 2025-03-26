@@ -19,23 +19,25 @@ class BlogModel extends Blog {
       'title': title,
       'content': content,
       'image_url': imageUrl,
-      'topics': topics,
-      'updated_at': updatedAt.millisecondsSinceEpoch,
+      'topics': topics.map((topic) => topic.toString()).toList(),
+      'updated_at': updatedAt.toIso8601String(),
     };
   }
 
   factory BlogModel.fromJson(Map<String, dynamic> map) {
     return BlogModel(
-        id: map['id'] as String,
-        posterId: map['poster_id'] as String,
-        title: map['title'] as String,
-        content: map['content'] as String,
-        imageUrl: map['image_url'] as String,
-        topics: List<String>.from(map['topics'] as List<String>),
-        updatedAt: map['updated_at'] == null
-            ? DateTime.now()
-            : DateTime.parse(map['updated_at']));
+      id: map['id'] as String,
+      posterId: map['poster_id'] as String,
+      title: map['title'] as String,
+      content: map['content'] as String,
+      imageUrl: map['image_url'] as String,
+      topics: List<String>.from(map['topics'] ?? []),
+      updatedAt: map['updated_at'] == null
+          ? DateTime.now()
+          : DateTime.parse(map['updated_at']),
+    );
   }
+
   BlogModel copyWith({
     String? id,
     String? posterId,

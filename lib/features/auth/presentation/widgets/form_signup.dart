@@ -1,5 +1,6 @@
 import 'package:blog_clean_architecture/features/auth/presentation/logic/auth_cubit.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/logic/auth_state.dart';
+import 'package:blog_clean_architecture/features/auth/presentation/pages/login_page.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/widgets/auth_field.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/widgets/auth_gradient_button.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/widgets/header_texts_signup.dart';
@@ -26,7 +27,13 @@ class FormSignUp extends StatelessWidget {
     return SingleChildScrollView(
       child: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
-          // Handle any side effects like navigation or showing dialogs
+          if (state is AuthSuccess) {
+            Navigator.pushAndRemoveUntil(
+              context,
+              LoginPage.route(),
+              (route) => false,
+            );
+          }
         },
         builder: (context, state) {
           bool isLoading = state is AuthLoading;
