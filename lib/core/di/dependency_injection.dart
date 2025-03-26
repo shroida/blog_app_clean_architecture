@@ -62,5 +62,6 @@ void _initBlog() {
 
   getIt.registerLazySingleton(() => BlogCubit(
         getIt(),
+        getIt(),
       ));
 }
