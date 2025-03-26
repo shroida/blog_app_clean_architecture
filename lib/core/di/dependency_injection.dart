@@ -26,7 +26,7 @@ Future<void> setUpGetIt() async {
   final box = await Hive.openBox('blogBox');
   getIt.registerLazySingleton<Box>(() => box);
   _initAuth();
-  _initBlog(); // تسجيل InternetConnection
+  _initBlog();
   getIt.registerLazySingleton<InternetConnection>(() => InternetConnection());
 
   getIt.registerLazySingleton<ConnectionChecker>(

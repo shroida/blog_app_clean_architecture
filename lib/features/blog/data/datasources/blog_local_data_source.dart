@@ -16,7 +16,7 @@ class BlogLocalDataSourceImpl implements BlogLocalDataSource {
     for (int i = 0; i < box.length; i++) {
       final blogJson = box.get(i.toString());
       if (blogJson != null) {
-        blogs.add(BlogModel.fromJson(blogJson));
+        blogs.add(BlogModel.fromJson(Map<String, dynamic>.from(blogJson)));
       }
     }
     return blogs;
