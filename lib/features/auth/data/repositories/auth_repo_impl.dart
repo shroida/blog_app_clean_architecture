@@ -1,5 +1,7 @@
+import 'package:blog_clean_architecture/core/constant/topics_constants.dart';
 import 'package:blog_clean_architecture/core/error/exceptions.dart';
 import 'package:blog_clean_architecture/core/error/failure.dart';
+import 'package:blog_clean_architecture/core/network/connection_checker.dart';
 import 'package:blog_clean_architecture/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:blog_clean_architecture/core/common/entities/user.dart';
 import 'package:blog_clean_architecture/features/auth/domain/repository/auth_repo.dart';
@@ -7,8 +9,9 @@ import 'package:fpdart/fpdart.dart';
 
 class AuthRepoImpl implements AuthRepo {
   final AuthRemoteDataSource _authRemoteDataSource;
+  final ConnectionChecker connectionChecker;
 
-  const AuthRepoImpl(this._authRemoteDataSource);
+  const AuthRepoImpl(this._authRemoteDataSource, this.connectionChecker);
 
   @override
   Future<Either<Failure, User>> login({
@@ -36,7 +39,12 @@ class AuthRepoImpl implements AuthRepo {
     Future<User> Function() remoteCall,
   ) async {
     try {
+      if (!await (connectionChecker.isConnected)) {
+        return left(
+            const ServerFailure(TopicsConstants.noConnectionErrorMessage));
+      }
       final user = await remoteCall();
+
       return right(user);
     } on ServerExceptions catch (e) {
       return left(ServerFailure(e.message));

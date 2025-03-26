@@ -40,7 +40,10 @@ Future<void> setUpGetIt() async {
 void _initAuth() {
   getIt.registerFactory<AuthRemoteDataSource>(
       () => AuthRemoteDataSourceImpl(getIt()));
-  getIt.registerFactory<AuthRepo>(() => AuthRepoImpl(getIt()));
+  getIt.registerFactory(() => InternetConnection());
+  getIt
+      .registerFactory<ConnectionChecker>(() => ConnectionCheckerImpl(getIt()));
+  getIt.registerFactory<AuthRepo>(() => AuthRepoImpl(getIt(), getIt()));
   getIt.registerFactory(() => UserSignUp(getIt()));
   getIt.registerFactory(() => UserLogin(getIt()));
   getIt.registerFactory(() => CurrentUser(getIt()));
