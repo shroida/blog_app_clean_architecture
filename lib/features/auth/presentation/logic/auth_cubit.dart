@@ -65,10 +65,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void _emitAuthSuccess(User user, void Function(AuthState) emit) {
-    print("Updating AppUserCubit with user: ${user.id}");
     _appUserCubit.updateUser(user);
-    print(
-        "AppUserCubit state after update: ${_appUserCubit.state.runtimeType}");
     emit(AuthSuccess(user: user));
   }
 }

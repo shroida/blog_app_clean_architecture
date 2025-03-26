@@ -48,7 +48,7 @@ class AuthRepoImpl implements AuthRepo {
     try {
       final user = await _authRemoteDataSource.getCurrrentUserData();
       if (user == null) {
-        return left(ServerFailure('User not logged in!'));
+        return left(const ServerFailure('User not logged in!'));
       } else {
         return right(user);
       }
