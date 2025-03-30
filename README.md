@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/ab9b071b-50f0-4710-b830-19439bc49ce0)# 📱 Clean Architecture Flutter App 🚀
+# 📱 Clean Architecture Flutter App 🚀
 A Flutter application following Clean Architecture and SOLID Principles, powered by:
 
 ✅ BLoC for state management
