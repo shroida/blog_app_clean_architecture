@@ -8,7 +8,7 @@ A Flutter application following Clean Architecture and SOLID Principles, powered
 
 Built for scalability, maintainability, and performance! 💡
 ### 🔄 App Flow
-![App flow](https://github.com/user-attachments/assets/acd148dc-6c42-4f60-b6fb-be628b4f6bd5)
+![428426107-acd148dc-6c42-4f60-b6fb-be628b4f6bd5](https://github.com/user-attachments/assets/f995bf7c-d156-4900-9a87-5fab3de4884f)
 
 ### 🛠️ Project Structure
 ![f](https://github.com/user-attachments/assets/43f99c28-fc11-45ad-a46a-eea303a21931)
